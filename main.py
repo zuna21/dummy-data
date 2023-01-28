@@ -2,6 +2,7 @@ from faker import Faker
 from random import shuffle, seed
 from faker.providers.person.en import Provider
 import random
+import json
 
 fake = Faker()
 letters = [
@@ -87,9 +88,27 @@ def create_urls(number):
     return urls
 
 def main():
-    number = input("How many sentences: ")
-    create_sentences(number)
+    print("How many keys you want to have in file?")
+    keys_number = int(input("> "))
+    keys_array = []
+    values_array = []
+    for i in range(keys_number):
+        row = i + 1
+        print("Enter " + str(row) + ". key: ")
+        key = input("> ")
+        print("Enter his value: ")
+        value = input("> ")
+        keys_array.append(key)
+        values_array.append(value)
 
+    # Create JSON file with dictionary of 
+    # keys and values
+    dictionary_object = {}
+    for i in range(keys_number):
+        dictionary_object[keys_array[i]] = values_array[i]
+
+    with open("sample.json", "w") as outfile:
+        json.dump(dictionary_object, outfile)
 
 if __name__ == "__main__":
     main()
